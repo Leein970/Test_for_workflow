@@ -19,8 +19,7 @@ jobs:
         run: |
           BRANCH_NAME="${{ github.event.pull_request.head.ref }}"
           PREFIX=$(echo "$BRANCH_NAME" | cut -d'/' -f1)
-          echo "::set-output name=prefix::$PREFIX"
-
+          echo "prefix=$PREFIX" >> "$GITHUB_OUTPUT"
       - name: Add Label to Pull Request
         uses: actions/github-script@v5
         with:
