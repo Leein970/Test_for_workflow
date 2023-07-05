@@ -39,3 +39,4 @@ jobs:
                 labels: [label],
               });
             }
+          github-token: ${{ secrets.GITHUB_TOKEN }}
