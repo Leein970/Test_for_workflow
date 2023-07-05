@@ -28,10 +28,11 @@ jobs:
             const prefix = "${{ steps.extract_prefix.outputs.prefix }}"
             const prNumber = context.issue.number;
             
-            github.rest.issues.addLabels({
+            if(prefix && prNumber){
+              github.rest.issues.addLabels({
                 owner: context.repo.owner,
                 repo: context.repo.repo,
                 issue_number: prNumber,
                 labels: [prefix],
               });
-
+            };
