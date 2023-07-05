@@ -1,4 +1,4 @@
-name: Extract Branch Prefix
+name: Extract Branch Prefix and Add Label
 
 on:
   pull_request:
@@ -11,7 +11,31 @@ jobs:
 
     steps:
       - name: Extract Prefix from Branch Name
+        id: extract_prefix
         run: |
           BRANCH_NAME="${{ github.event.pull_request.head.ref }}"
           PREFIX=$(echo "$BRANCH_NAME" | cut -d'/' -f1)
-          echo "Prefix of the branch is: $PREFIX"
+          echo "::set-output name=prefix::$PREFIX"
+
+      - name: Add Label to Pull Request
+        uses: actions/github-script@v5
+        with:
+          script: |
+            const prefix = "${{ steps.extract_prefix.outputs.prefix }}"
+            const prNumber = context.issue.number;
+            
+            let label = '';
+            if (prefix === 'feature') {
+              label = 'feature';
+            } else if (prefix === 'hotfix') {
+              label = 'hotfix';
+            }
+            
+            if (label) {
+              github.rest.issues.addLabels({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: prNumber,
+                labels: [label],
+              });
+            }
