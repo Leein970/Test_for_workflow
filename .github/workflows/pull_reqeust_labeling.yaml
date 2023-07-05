@@ -1,1 +1,17 @@
+name: Extract Branch Prefix
 
+on:
+  pull_request:
+    branches:
+      - develop
+
+jobs:
+  extract-branch-prefix:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Extract Prefix from Branch Name
+        run: |
+          BRANCH_NAME="${{ github.event.pull_request.head.ref }}"
+          PREFIX=$(echo "$BRANCH_NAME" | cut -d'/' -f1)
+          echo "Prefix of the branch is: $PREFIX"
