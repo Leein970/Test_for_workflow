@@ -1,5 +1,9 @@
 name: Extract Branch Prefix and Add Label
 
+permissions:
+  pull-requests: write
+  issues: write
+  
 on:
   pull_request:
     branches:
@@ -39,3 +43,4 @@ jobs:
                 labels: [label],
               });
             }
+          github-token: ${{ secrets.GITHUB_TOKEN }}
