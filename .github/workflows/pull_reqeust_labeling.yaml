@@ -1,8 +1,6 @@
 name: Extract Branch Prefix and Add Label
 
-permissions:
-  pull-requests: write
-  issues: write
+permissions: read-all|write-all
 
 on:
   pull_request:
