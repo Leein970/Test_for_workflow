@@ -29,10 +29,13 @@ jobs:
             const prNumber = context.issue.number;
             
             let label = '';
+            
             if (prefix === 'feature') {
               label = 'feature';
             } else if (prefix === 'hotfix') {
               label = 'hotfix';
+            } else {
+              label = 'etc.';
             }
             
             if (label) {
