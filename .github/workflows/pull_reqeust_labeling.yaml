@@ -17,7 +17,7 @@ jobs:
         uses: actions/github-script@v6
         with:
           script: |
-            const branchName = github.head_ref;
+            const branchName = "${{github.head_ref}}";
             const prefix = branchName.split('/')[0];
             const prNumber = context.issue.number;
             
