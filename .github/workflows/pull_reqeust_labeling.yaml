@@ -14,10 +14,11 @@ jobs:
 
     steps:
       - name: Add Label to Pull Request
-        uses: actions/github-script@v6
+        uses: actions/github-script@v5
         with:
           script: |
             const branchName = github.head_ref;
+            console.log(branchName)
             const prefix = branchName.split('/')[0];
             const prNumber = context.issue.number;
             
